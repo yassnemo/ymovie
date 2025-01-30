@@ -11,7 +11,7 @@ Discover your next favorite movie! A modern web app for browsing and searching m
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/movie-recommender.git
+git clone https://github.com/yassnemo/ymovie.git
 ```
 
 2. Install dependencies:
