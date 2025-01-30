@@ -1,27 +1,36 @@
 {
-    "name": "movie-recommender",
+    "name": "ymovie",
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
-        "preview": "vite preview"
+      "dev": "vite",
+      "build": "tsc && vite build",
+      "preview": "vite preview",
+      "start": "vite preview --port 3000",
+      "type-check": "tsc --noEmit",
+      "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
     },
     "dependencies": {
-        "@emotion/react": "^11.14.0",
-        "@emotion/styled": "^11.14.0",
-        "@mui/icons-material": "^6.4.2",
-        "@mui/material": "^6.4.2",
-        "axios": "^1.4.0",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-icons": "^4.10.1"
+      "@emotion/react": "^11.14.0",
+      "@emotion/styled": "^11.14.0",
+      "@mui/icons-material": "^6.4.2",
+      "@mui/material": "^6.4.2",
+      "axios": "^1.4.0",
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1",
+      "react-router-dom": "^6.23.1"
     },
     "devDependencies": {
-        "@types/react": "^18.3.18",
-        "@types/react-dom": "^18.3.5",
-        "@vitejs/plugin-react": "^4.0.3",
-        "typescript": "^5.0.2",
-        "vite": "^4.4.5"
+      "@types/node": "^20.14.2",
+      "@types/react": "^18.3.18",
+      "@types/react-dom": "^18.3.5",
+      "@types/react-router-dom": "^5.3.3",
+      "@vitejs/plugin-react": "^4.0.3",
+      "typescript": "^5.0.2",
+      "vite": "^4.4.5",
+      "vite-plugin-checker": "^0.8.3",
+      "eslint": "^8.57.0",
+      "eslint-plugin-react": "^7.34.1",
+      "eslint-plugin-react-hooks": "^4.6.0"
     }
-}
+  }

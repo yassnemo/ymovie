@@ -36,3 +36,6 @@ yarn-error.log*
 # cache
 .cache/
 .parcel-cache/
+
+# vercel
+.vercel
