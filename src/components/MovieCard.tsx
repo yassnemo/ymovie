@@ -22,16 +22,21 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
       }}
       onClick={onClick}
     >
+    <Box sx={{ position: 'relative', paddingTop: '150%' }}>
       <CardMedia
         component="img"
-        height="300"
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
+        }}
         image={movie.posterUrl || '/placeholder-movie.jpg'}
         alt={movie.title}
-        sx={{ 
-          objectFit: 'cover',
-          bgcolor: 'grey.100' // Fallback color if image fails to load
-        }}
       />
+      </Box>
       <CardContent>
         <Typography gutterBottom variant="h6" component="div" noWrap>
           {movie.title}
