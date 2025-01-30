@@ -1,8 +1,8 @@
 ## YMovie
 
-Discover your next favorite movie! A modern web app for browsing and searching movies powered by The Movie Database (TMDB) API.
+🎬 Discover your next favorite movie! A modern web app for browsing and searching movies powered by The Movie Database (TMDB) API.
 
-##  Getting Started
+##  🚀 Getting Started
 ### Prerequisites
 
 - TMDB API key ([Get it here](https://www.themoviedb.org/settings/api))
@@ -27,7 +27,7 @@ npm install
 VITE_TMDB_API_KEY=your_api_key_here
 ```
 
-### Running the App
+### 🖥️ Running the App
 
 
 Start development server:
@@ -37,6 +37,18 @@ npm run dev
 ```
 
 The app will be running at http://localhost:3001
+
+### 🛠️ Tech Stack
+
+- React + TypeScript
+
+- Material-UI (MUI)
+
+- Vite
+
+- Axios
+
+- TMDB API
 
 Made with ❤️ by Yassine Erradouani
 
