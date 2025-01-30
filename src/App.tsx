@@ -1,45 +1,70 @@
 import { useState } from 'react'
-import { Container, Grid, Typography } from '@mui/material'
+import { Container, Grid, Typography, CircularProgress, Box } from '@mui/material'
 import { Movie } from './types/movie'
 import useMovies from './hooks/useMovies'
 import SearchBar from './components/SearchBar'
 import GenreFilter from './components/GenreFilter'
 import MovieCard from './components/MovieCard'
+import MovieDetails from './components/MovieDetails'
 
 export default function App() {
-  const { movies, loading, error } = useMovies()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedGenre, setSelectedGenre] = useState('all')
-
-  const filteredMovies = movies.filter(movie => {
-    const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesGenre = selectedGenre === 'all' || movie.genres.includes(selectedGenre)
-    return matchesSearch && matchesGenre
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+  
+  // Updated hook usage with search and genre filters
+  const { movies, loading, error } = useMovies({
+    searchQuery,
+    genre: selectedGenre !== 'all' ? selectedGenre : undefined
   })
 
-  if (error) return <div>Error loading movies</div>
-  
-  return (
-    <Container maxWidth="xl">
-      <Typography variant="h2" component="h1" gutterBottom>
-        Movie Recommender
+  const handleSearch = (query: string) => {
+    setSearchQuery(query)
+  }
+
+  if (error) return (
+    <Box display="flex" justifyContent="center" mt={4}>
+      <Typography variant="h6" color="error">
+        Error loading movies: {error.message}
       </Typography>
-      <SearchBar onSearch={setSearchQuery} />
-      <GenreFilter
-        selectedGenre={selectedGenre}
-        onGenreChange={setSelectedGenre}
-      />
+    </Box>
+  )
+
+  return (
+    <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+        YMovie 
+      </Typography>
+      
+      <Box mb={4} display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
+        <SearchBar onSearch={handleSearch} />
+        <GenreFilter
+          selectedGenre={selectedGenre}
+          onGenreChange={setSelectedGenre}
+        />
+      </Box>
+
       {loading ? (
-        <div>Loading...</div>
+        <Box display="flex" justifyContent="center" mt={4}>
+          <CircularProgress size={60} />
+        </Box>
       ) : (
         <Grid container spacing={3}>
-          {filteredMovies.map(movie => (
+          {movies.map(movie => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
-              <MovieCard movie={movie} />
+              <MovieCard 
+                movie={movie} 
+                onClick={() => setSelectedMovie(movie)}
+              />
             </Grid>
           ))}
         </Grid>
       )}
+
+      <MovieDetails 
+        movie={selectedMovie} 
+        onClose={() => setSelectedMovie(null)} 
+      />
     </Container>
   )
 }
