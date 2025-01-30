@@ -6,6 +6,7 @@ import SearchBar from './components/SearchBar'
 import GenreFilter from './components/GenreFilter'
 import MovieCard from './components/MovieCard'
 import MovieDetails from './components/MovieDetails'
+import Footer from './components/Footer'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -32,39 +33,42 @@ export default function App() {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-        YMovie 
-      </Typography>
-      
-      <Box mb={4} display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
-        <SearchBar onSearch={handleSearch} />
-        <GenreFilter
-          selectedGenre={selectedGenre}
-          onGenreChange={setSelectedGenre}
-        />
-      </Box>
-
-      {loading ? (
-        <Box display="flex" justifyContent="center" mt={4}>
-          <CircularProgress size={60} />
+      <Box>  
+        <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          YMovie 
+        </Typography>
+        
+        <Box mb={4} display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
+          <SearchBar onSearch={handleSearch} />
+          <GenreFilter
+            selectedGenre={selectedGenre}
+            onGenreChange={setSelectedGenre}
+          />
         </Box>
-      ) : (
-        <Grid container spacing={3}>
-          {movies.map(movie => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
-              <MovieCard 
-                movie={movie} 
-                onClick={() => setSelectedMovie(movie)}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      )}
 
-      <MovieDetails 
-        movie={selectedMovie} 
-        onClose={() => setSelectedMovie(null)} 
-      />
+        {loading ? (
+          <Box display="flex" justifyContent="center" mt={4}>
+            <CircularProgress size={60} />
+          </Box>
+        ) : (
+          <Grid container spacing={3}>
+            {movies.map(movie => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
+                <MovieCard 
+                  movie={movie} 
+                  onClick={() => setSelectedMovie(movie)}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+
+        <MovieDetails 
+          movie={selectedMovie} 
+          onClose={() => setSelectedMovie(null)} 
+        />
+       <Footer />
+      </Box>
     </Container>
   )
 }
