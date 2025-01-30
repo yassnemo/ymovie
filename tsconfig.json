@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "jsx": "react-jsx",
+      "target": "ES2020",
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "lib": ["DOM", "DOM.Iterable", "ESNext"],
+      "allowJs": true,
+      "checkJs": true,
+      "noEmit": true,
+      "isolatedModules": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+  }
