@@ -6,18 +6,20 @@ import { genreMap } from '../utils/genreMap'
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY
 const BASE_URL = 'https://api.themoviedb.org/3'
 
-// Create reverse genre map for name -> ID lookup
 const reverseGenreMap: { [key: string]: number } = Object.entries(genreMap).reduce(
   (acc, [id, name]) => ({ ...acc, [name]: parseInt(id) }),
   {}
 )
 
+export type MovieCategory = 'popular' | 'top_rated' | 'now_playing' | 'trending'
+
 interface UseMoviesProps {
   searchQuery?: string
   genre?: string
+  category?: MovieCategory
 }
 
-export default function useMovies({ searchQuery, genre }: UseMoviesProps = {}) {
+export default function useMovies({ searchQuery, genre, category }: UseMoviesProps = {}) {
   const [movies, setMovies] = useState<Movie[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -47,7 +49,7 @@ export default function useMovies({ searchQuery, genre }: UseMoviesProps = {}) {
       setLoading(true)
       setError(null)
 
-      const endpoint = searchQuery ? '/search/movie' : '/discover/movie'
+      let endpoint = '/discover/movie'
       const params: any = {
         api_key: API_KEY,
         page: pageNumber,
@@ -55,7 +57,12 @@ export default function useMovies({ searchQuery, genre }: UseMoviesProps = {}) {
         include_adult: false
       }
 
-      if (searchQuery) {
+      if (category) {
+        endpoint = category === 'trending' 
+          ? '/trending/movie/week' 
+          : `/movie/${category}`
+      } else if (searchQuery) {
+        endpoint = '/search/movie'
         params.query = searchQuery
       } else {
         params.sort_by = 'popularity.desc'
@@ -77,9 +84,9 @@ export default function useMovies({ searchQuery, genre }: UseMoviesProps = {}) {
     } finally {
       setLoading(false)
     }
-  }, [searchQuery, genre, formatMovie])
+  }, [searchQuery, genre, category, formatMovie])
 
-  // Initial load and search/genre change
+  // Initial load and search/genre/category change
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       fetchMovies(1, true)

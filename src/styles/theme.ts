@@ -20,5 +20,15 @@ export const theme = createTheme({
       lg: 1200,
       xl: 1536
     }
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+        }
+      }
+    }
   }
 })

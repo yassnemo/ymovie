@@ -1,18 +1,26 @@
 import { useState } from 'react'
-import { Container, Grid, Typography, CircularProgress, Box } from '@mui/material'
+import { Container, Typography, CircularProgress, Box } from '@mui/material'
 import { Movie } from './types/movie'
-import useMovies from './hooks/useMovies'
+import useMovies, { MovieCategory } from './hooks/useMovies'
 import SearchBar from './components/SearchBar'
 import GenreFilter from './components/GenreFilter'
 import MovieCard from './components/MovieCard'
 import MovieDetails from './components/MovieDetails'
 import Footer from './components/Footer'
+import MovieSection from './components/MovieSection'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedGenre, setSelectedGenre] = useState('all')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
-  
+
+  // Category sections
+  const { movies: popularMovies, loading: popularLoading } = useMovies({ category: 'popular' })
+  const { movies: topRatedMovies, loading: topRatedLoading } = useMovies({ category: 'top_rated' })
+  const { movies: nowPlayingMovies, loading: nowPlayingLoading } = useMovies({ category: 'now_playing' })
+  const { movies: trendingMovies, loading: trendingLoading } = useMovies({ category: 'trending' })
+
+  // Search/Filter results
   const { movies, loading, error } = useMovies({
     searchQuery,
     genre: selectedGenre !== 'all' ? selectedGenre : undefined
@@ -21,6 +29,8 @@ export default function App() {
   const handleSearch = (query: string) => {
     setSearchQuery(query)
   }
+
+  const showSearchResults = searchQuery || selectedGenre !== 'all'
 
   if (error) return (
     <Box display="flex" justifyContent="center" mt={4}>
@@ -54,32 +64,54 @@ export default function App() {
           />
         </Box>
 
-        {loading ? (
-          <Box display="flex" justifyContent="center" mt={4}>
-            <CircularProgress size={60} />
-          </Box>
-        ) : (
-          <Grid container spacing={3}>
-            {movies.map(movie => (
-              <Grid 
-                item 
-                xs={12}  // Full width on mobile
-                sm={6}   // 2 cards per row on tablets
-                md={4}   // 3 cards per row on small desktops
-                lg={2.4} // 5 cards per row on large screens
-                key={movie.id}
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}
-              >
+        {showSearchResults ? (
+          // Search/Filter Results Grid
+          loading ? (
+            <Box display="flex" justifyContent="center" mt={4}>
+              <CircularProgress size={60} />
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                  xs: '1fr',
+                  sm: 'repeat(2, 1fr)',
+                  md: 'repeat(3, 1fr)',
+                  lg: 'repeat(5, 1fr)'
+                },
+                gap: 3
+              }}
+            >
+              {movies.map(movie => (
                 <MovieCard 
+                  key={movie.id}
                   movie={movie} 
                   onClick={() => setSelectedMovie(movie)}
                 />
-              </Grid>
-            ))}
-          </Grid>
+              ))}
+            </Box>
+          )
+        ) : (
+          // Category Sections
+          <>
+            <MovieSection 
+              title="Popular Now" 
+              movies={popularMovies} 
+            />
+            <MovieSection 
+              title="Top Rated" 
+              movies={topRatedMovies} 
+            />
+            <MovieSection 
+              title="Now in Cinemas" 
+              movies={nowPlayingMovies} 
+            />
+            <MovieSection 
+              title="Trending This Week" 
+              movies={trendingMovies} 
+            />
+          </>
         )}
 
         <MovieDetails 
@@ -88,7 +120,6 @@ export default function App() {
         />
       </Container>
 
-      {/* Footer with spacing */}
       <Box sx={{ mt: 4 }}>
         <Footer />
       </Box>
