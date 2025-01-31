@@ -13,7 +13,6 @@ export default function App() {
   const [selectedGenre, setSelectedGenre] = useState('all')
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
   
-  // Updated hook usage with search and genre filters
   const { movies, loading, error } = useMovies({
     searchQuery,
     genre: selectedGenre !== 'all' ? selectedGenre : undefined
@@ -32,10 +31,19 @@ export default function App() {
   )
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Box>  
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+      backgroundColor: 'background.default'
+    }}>
+      <Container maxWidth="xl" sx={{ 
+        py: 4,
+        flex: 1,
+        pb: 10 
+      }}>
         <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-          YMovie 
+          YMOVIES
         </Typography>
         
         <Box mb={4} display="flex" gap={2} flexDirection={{ xs: 'column', sm: 'row' }}>
@@ -67,8 +75,12 @@ export default function App() {
           movie={selectedMovie} 
           onClose={() => setSelectedMovie(null)} 
         />
-       <Footer />
+      </Container>
+
+      {/* Footer with spacing */}
+      <Box sx={{ mt: 4 }}> {/* Spacer */}
+        <Footer />
       </Box>
-    </Container>
+    </Box>
   )
 }

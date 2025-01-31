@@ -4,61 +4,47 @@ import TMDBLogo from '../public/tmdb-logo.svg'
 
 export default function Footer() {
   return (
-    <Box 
-      component="footer" 
-      sx={{ 
-        py: 3, 
-        px: 2, 
-        mt: 'auto',
+    <Box
+      component="footer"
+      sx={{
+        width: '100%',
+        py: 2,
+        px: 0, 
         backgroundColor: 'background.paper',
         borderTop: '1px solid',
         borderColor: 'divider',
-        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center'
       }}
     >
       <Box display="flex" justifyContent="center" gap={2} mb={1}>
-        <IconButton 
-          href="https://github.com/yassnemo" 
-          target="_blank" 
-          rel="noopener"
-        >
+        <IconButton href="https://github.com/yassnemo" target="_blank">
           <GitHub />
         </IconButton>
-        
-        <IconButton 
-          href="https://linkedin.com/in/yassine-erradouani" 
-          target="_blank" 
-          rel="noopener"
-        >
+        <IconButton href="https://linkedin.com/in/yassine-erradouani" target="_blank">
           <LinkedIn />
         </IconButton>
-        
         <IconButton href="mailto:yassine.erradouani@outlook.com">
           <Email />
         </IconButton>
       </Box>
 
-      <Typography variant="body2" color="text.secondary">
-        Developed by Yassine Erradouani
-      </Typography>
-
-      <Box mt={1} display="flex" alignItems="center" justifyContent="center" gap={1}>
+      <Box display="flex" alignItems="center" gap={1} mb={1}>
         <Typography variant="body2" color="text.secondary">
-          Data By:
+          Data By
         </Typography>
-        <Link 
-          href="https://www.themoviedb.org/" 
-          target="_blank" 
-          rel="noopener"
-          sx={{ display: 'flex', alignItems: 'center' }}
-        >
-          <img 
-            src="/tmdb-logo.svg" 
-            alt="TMDB Logo" 
-            style={{ height: '20px' }} 
-          />
-        </Link>
+        <img 
+          src="/tmdb-logo.svg" 
+          alt="TMDB Logo" 
+          style={{ height: '20px' }} 
+        />
       </Box>
+
+      <Typography variant="body2" color="text.secondary">
+        © {new Date().getFullYear()} Yassine Erradouani
+      </Typography>
     </Box>
   )
 }
