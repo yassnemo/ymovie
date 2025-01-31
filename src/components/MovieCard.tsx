@@ -37,11 +37,17 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
         alt={movie.title}
       />
       </Box>
-      <CardContent>
-        <Typography gutterBottom variant="h6" component="div" noWrap>
-          {movie.title}
-        </Typography>
-        
+      <CardContent sx={{ 
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+      }}>
+        <Box>
+          <Typography gutterBottom variant="h6" component="div" noWrap>
+            {movie.title}
+          </Typography>
+        </Box>
         <Box display="flex" alignItems="center" gap={1} mb={1}>
           <Rating
             value={(movie.rating / 2) || 0}
@@ -72,8 +78,8 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
           {movie.overview || 'No description available'}
         </Typography>
 
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-          {movie.genres.slice(0, 3).map((genre, index) => (
+        <Box sx={{ mt: 2 }}>
+        {movie.genres.slice(0, 3).map((genre, index) => (
             <Chip
               key={index}
               label={genre}
