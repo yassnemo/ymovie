@@ -10,14 +10,15 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
   return (
     <Card 
       sx={{ 
-        height: '100%', 
-        display: 'flex', 
+        height: '100%',
+        display: 'flex',
         flexDirection: 'column',
-        cursor: 'pointer',
-        transition: 'transform 0.2s, box-shadow 0.2s',
-        '&:hover': { 
-          transform: 'translateY(-4px)',
-          boxShadow: '0 8px 16px rgba(0,0,0,0.2)'
+        width: '100%', 
+        maxWidth: { xs: 300, sm: 'none%' }, 
+        mx: 'auto', 
+        transition: 'transform 0.2s',
+        '&:hover': {
+          transform: 'scale(1.02)'
         }
       }}
       onClick={onClick}

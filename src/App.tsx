@@ -61,7 +61,18 @@ export default function App() {
         ) : (
           <Grid container spacing={3}>
             {movies.map(movie => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={movie.id}>
+              <Grid 
+                item 
+                xs={12}  // Full width on mobile
+                sm={6}   // 2 cards per row on tablets
+                md={4}   // 3 cards per row on small desktops
+                lg={2.4} // 5 cards per row on large screens
+                key={movie.id}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+              >
                 <MovieCard 
                   movie={movie} 
                   onClick={() => setSelectedMovie(movie)}
@@ -78,7 +89,7 @@ export default function App() {
       </Container>
 
       {/* Footer with spacing */}
-      <Box sx={{ mt: 4 }}> {/* Spacer */}
+      <Box sx={{ mt: 4 }}>
         <Footer />
       </Box>
     </Box>
