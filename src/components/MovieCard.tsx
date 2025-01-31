@@ -78,19 +78,32 @@ export default function MovieCard({ movie, onClick }: MovieCardProps) {
           {movie.overview || 'No description available'}
         </Typography>
 
-        <Box sx={{ mt: 2 }}>
-        {movie.genres.slice(0, 3).map((genre, index) => (
-            <Chip
-              key={index}
-              label={genre}
-              size="small"
-              variant="outlined"
-              sx={{ 
-                borderColor: 'primary.main',
-                color: 'primary.main'
-              }}
-            />
-          ))}
+        <Box sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: 1, 
+            mt: 2 
+          }}>
+            {movie.genres.slice(0, 3).map((genre, index) => (
+              <Chip
+                key={index}
+                label={genre}
+                size="small"
+                sx={{
+                  transition: 'background-color 0.2s ease',
+                  backgroundColor: '#37B7C3',
+                  color: 'primary.contrastText',
+                  '&:hover': {
+                    backgroundColor: '#176B87',
+                  },
+                  fontSize: '0.75rem',
+                  fontWeight: 500,
+                  px: 1,
+                  py: 0.5,
+                  borderRadius: 1
+                }}
+              />
+            ))}
         </Box>
       </CardContent>
     </Card>
