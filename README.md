@@ -52,3 +52,8 @@ The app will be running at http://localhost:3001
 
 Made with ❤️ by Yassine Erradouani
 
+
+Currently I'm working a new version of this with a recommendation system just like the netflix app. 
+Will be published soon.
+
+
